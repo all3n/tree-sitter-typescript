@@ -14,7 +14,8 @@ static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
 static bool scan_template_chars(TSLexer *lexer) {
   lexer->result_symbol = TEMPLATE_CHARS;
-  for (bool has_content = false;; has_content = true) {
+  bool has_content = false;
+  for (;; has_content = true) {
     lexer->mark_end(lexer);
     switch (lexer->lookahead) {
     case '`':
@@ -147,7 +148,8 @@ static bool scan_automatic_semicolon(TSLexer *lexer, const bool *valid_symbols){
 
     if (!iswalpha(lexer->lookahead)) return false;
 
-    for (unsigned i = 0; i < 8; i++) {
+    unsigned i = 0;
+    for (; i < 8; i++) {
       if (lexer->lookahead != "stanceof"[i]) return true;
       skip(lexer);
     }
